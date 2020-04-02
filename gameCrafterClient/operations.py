@@ -106,7 +106,7 @@ async def login():
 
     httpSession = await aiohttp.ClientSession()
     login = await client.login(httpSession, publicApiKey, userName, userPassword)
-    return GameCrafterSession(sessionId=login["id"], userId=login["user_id"], aiohttp.ClientSession())
+    return GameCrafterSession(sessionId=login["id"], userId=login["user_id"], httpSession=aiohttp.ClientSession())
 
 async def logout(gameCrafterSession):
     await client.logout(gameCrafterSession)

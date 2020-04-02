@@ -1,18 +1,18 @@
 pipdevelop:
 	pipenv sync 
-	pipenv run python setup.py develop
-	pipenv run pip install -e .
+	pipenv run python3 setup.py develop
+	pipenv run pip3 install -e .
 
 pipundevelop:
-	pipenv run python setup.py develop --uninstall
+	pipenv run python3 setup.py develop --uninstall
 	pipenv --rm
 
 develop:
-	python setup.py develop
-	pip install -e .
+	python3 setup.py develop
+	pip3 install -e .
 
 undevelop:
-	python setup.py develop --uninstall
+	python3 setup.py develop --uninstall
 	
 clean:
 	rm -rf dist/
@@ -21,5 +21,5 @@ clean:
 	find . -name '*.pyc' -delete
 
 release: clean
-	pipenv run python setup.py sdist
+	pipenv run python3 setup.py sdist
 	pipenv run twine upload dist/*
