@@ -7,7 +7,6 @@ setup(
     author_email = "oliverbarnum32@gmail.com",
     description = "API client for the game crafter.",
     url = "https://github.com/TheNextGuy32/gameCrafterClient",
-    install_requires=["tabulate", "asyncio", "aiofile", "aiohttp"],
     download_url="https://github.com/TheNextGuy32/gameCrafterClient/archive/1.0.1.tar.gz",
     classifiers=[
         "Programming Language :: Python :: 3.7",
