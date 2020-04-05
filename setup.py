@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "gameCrafterClient",
-    version = "1.0.1",
+    version = "1.0.2",
     author = "Oliver Barnum",
     author_email = "oliverbarnum32@gmail.com",
     description = "API client for the game crafter.",
