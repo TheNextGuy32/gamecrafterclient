@@ -104,10 +104,11 @@ async def login():
     userPassword = os.environ.get('THEGAMECRAFTER_PASSWORD')
     if not userPassword:
         raise Exception('Could not log in. You need to set the env variable THEGAMECRAFTER_PASSWORD. Value is %s' % userPassword)
-
-    httpSession = await aiohttp.ClientSession()
-    login = await client.login(httpSession, publicApiKey, userName, userPassword)
-    return GameCrafterSession(sessionId=login["id"], userId=login["user_id"], httpSession=aiohttp.ClientSession())
+    
+    gameCrafterSession = GameCrafterSession(aiohttp.ClientSession())
+    login = await client.login(gameCrafterSession, publicApiKey, userName, userPassword)
+    gameCrafterSession.login(sessionId=login["id"], userId=login["user_id"])
+    return gameCrafterSession
 
 async def logout(gameCrafterSession):
     await client.logout(gameCrafterSession)

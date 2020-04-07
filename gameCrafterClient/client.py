@@ -5,47 +5,48 @@ from . import httpClient
 
 gameCrafterBaseUrl = "https://www.thegamecrafter.com/api"
 
-async def login(httpSession, publicApiKey, userName, userPassword):
+async def login(gameCrafterSession, publicApiKey, userName, userPassword):
     url = "%s/session" % gameCrafterBaseUrl
-    return await httpClient.post(httpSession, url, 
+    return await httpClient.post(gameCrafterSession, url, 
         api_key_id = publicApiKey,
         username = userName,
         password = userPassword
     )
 
 async def logout(gameCrafterSession):
-    url = "%s/session/%s" % (gameCrafterBaseUrl, client.sessionId)
-    return await httpClient.delete(gameCrafterSession, url)
+    url = "%s/session/%s" % (gameCrafterBaseUrl, gameCrafterSession.sessionId)
+    await httpClient.delete(gameCrafterSession, url)
+    await gameCrafterSession.httpSession.close() 
 
 async def getUser(gameCrafterSession):
-    url = "%s/user/%s" % (gameCrafterBaseUrl, session["user_id"])
+    url = "%s/user/%s" % (gameCrafterBaseUrl, gameCrafterSession.userId)
     
     return await httpClient.get(gameCrafterSession, url, 
-        session_id = session["id"]
+        session_id = gameCrafterSession.sessionId
     )
 
 async def getDesigners(gameCrafterSession):
-    url = "%s/user/%s/designers" % (gameCrafterBaseUrl, session["user_id"])
+    url = "%s/user/%s/designers" % (gameCrafterBaseUrl, gameCrafterSession.userId)
     return await httpClient.get(gameCrafterSession, url,
-        session_id = session["id"]
+        session_id = gameCrafterSession.sessionId
     )
 
 async def getGamesForDesignerId(gameCrafterSession, designerId):
     url = "%s/designer/%s/games" % (gameCrafterBaseUrl, designerId)
     return await httpClient.get(gameCrafterSession, url,
-        session_id = session["id"]
+        session_id = gameCrafterSession.sessionId
     )
 
 async def getGamesForUser(gameCrafterSession):
-    url = "%s/user/%s/games" % (gameCrafterBaseUrl, session["user_id"])
+    url = "%s/user/%s/games" % (gameCrafterBaseUrl, gameCrafterSession.userId)
     return await httpClient.get(gameCrafterSession, url,
-        session_id = session["id"]
+        session_id = gameCrafterSession.sessionId
     )
 
 async def postGame(gameCrafterSession, name, designerId):
     url = "%s/game" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name = name,
         designer_id = designerId,
         description='Automatically created (%s)' % name,
@@ -54,7 +55,7 @@ async def postGame(gameCrafterSession, name, designerId):
 async def postPokerDeck(gameCrafterSession, name, quantity, gameId, backImageFileId):
     url = "%s/pokerdeck" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name = name,
         game_id = gameId,
         quantity = quantity,
@@ -65,7 +66,7 @@ async def postPokerDeck(gameCrafterSession, name, quantity, gameId, backImageFil
 async def postPokerCard(gameCrafterSession, name, deckId, quantity, imageFileId):
     url = "%s/pokercard" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name = name,
         deck_id = deckId,
         quantity = quantity,
@@ -78,7 +79,7 @@ async def postPokerCard(gameCrafterSession, name, deckId, quantity, imageFileId)
 async def postSmallStoutBox(gameCrafterSession, gameId, name, quantity, topImageFileId, backImageFileId):
     url = "%s/smallstoutbox" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name = name,
         game_id = gameId,
         quantity = quantity,
@@ -91,7 +92,7 @@ async def postSmallStoutBox(gameCrafterSession, gameId, name, quantity, topImage
 async def postDocument(gameCrafterSession, name, quantity, gameId, pdfFileId):
     url = "%s/document" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name = name,
         game_id = gameId,
         quantity = quantity,
@@ -101,16 +102,16 @@ async def postDocument(gameCrafterSession, name, quantity, gameId, pdfFileId):
 async def postFolder(gameCrafterSession, name, folderParentId):
     url = "%s/folder" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         name=name,
-        user_Id=session["user_id"],
+        user_Id=gameCrafterSession.userId,
         parent_id=folderParentId,
     )
 
 async def postFile(gameCrafterSession, file, filename, folderId):
     url = "%s/file" % gameCrafterBaseUrl
     return await httpClient.post(gameCrafterSession, url,
-        session_id = session["id"],
+        session_id = gameCrafterSession.sessionId,
         file=file, 
         name=filename, 
         folder_id=folderId)

@@ -1,10 +1,9 @@
 import aiohttp
-
+import asyncio
 class GameCrafterSession:
-    def __init__ (sessionId, userId, httpSession):
-        self.sessionId = sessionId
-        self.userId = userId
+    def __init__ (self, httpSession):
         self.httpSession = httpSession
 
-    def __del__ ():
-        self.httpSession.close()
+    def login(self, sessionId, userId):
+        self.sessionId = sessionId
+        self.userId = userId
