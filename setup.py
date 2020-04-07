@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "gameCrafterClient",
-    version = "1.0.4",
+    name = "gamecrafterclient",
+    version = "1.0.5",
     author = "Oliver Barnum",
     author_email = "oliverbarnum32@gmail.com",
-    description = "API client for the game crafter.",
+    description = "Python API client for the game crafter.",
     url = "https://github.com/TheNextGuy32/gameCrafterClient",
+    packages=find_packages(),
     install_requires=["tabulate", "asyncio","aiofile","aiohttp"],
     download_url="https://github.com/TheNextGuy32/gameCrafterClient/archive/1.0.4.tar.gz",
     classifiers=[
