@@ -4,8 +4,9 @@ from uuid import uuid1
 from tabulate import tabulate
 from aiofile import AIOFile
 import aiohttp
-import gameCrafterClient.client
-from gameCrafterClient.gameCrafterSession import GameCrafterSession
+
+from . import client
+from .gameCrafterSession import GameCrafterSession
 
 baseUrl = "https://www.thegamecrafter.com"
 

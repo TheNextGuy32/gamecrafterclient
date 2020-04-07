@@ -1,1 +1,1 @@
-from gameCrafterClient import operations
+from .operations import *

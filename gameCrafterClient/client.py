@@ -1,7 +1,7 @@
 import os
 import asyncio
 from datetime import datetime
-import gameCrafterClient.httpClient as httpClient
+from . import httpClient
 
 gameCrafterBaseUrl = "https://www.thegamecrafter.com/api"
 
